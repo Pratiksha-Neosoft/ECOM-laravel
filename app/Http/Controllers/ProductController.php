@@ -263,6 +263,7 @@ class ProductController extends Controller
             $opdata=OrderProduct::where('order_id',$o->oid)->get();
             foreach($opdata as $op){
                 $orderPro[]=Product::where('id',$op->product_id)->first();
+
             }
             if($o->used=='1'){
                 $dis=UsedCoupon::where('order_id',$o->oid)->first();

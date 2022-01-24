@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coupon;
+use App\Models\UsedCoupon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 class CouponController extends Controller 
@@ -18,7 +19,7 @@ class CouponController extends Controller
             $validated=$request->validate([
                 'coupon_code'=>'required|min:5|max:15|unique:coupons,coupon_code',
                 'amount_type'=>'required',
-                'amount'=>['required','gt:0',Rule::when(($request->amount_type)=='Percentage',['lt:100'])],
+                'amount'=>['required','gt:0',Rule::when(($request->amount_type)=='Percentage',['lte:100'])],
                 'minimum_amount'=>'required|gt:amount',
             ]);
 			$data = $request->all();
@@ -44,7 +45,7 @@ class CouponController extends Controller
             $validated=$request->validate([
                 'coupon_code'=>'required|min:5|max:15',
                 'amount_type'=>'required',
-                'amount'=>['required','gt:0',Rule::when(($request->amount_type)=='Percentage',['lt:100'])],
+                'amount'=>['required','gt:0',Rule::when(($request->amount_type)=='Percentage',['lte:100'])],
                 'minimum_amount'=>'required',
             ]);
 			$data = $request->all();
@@ -77,5 +78,41 @@ class CouponController extends Controller
 	public function deleteCoupon($id = null){
         Coupon::where(['id'=>$id])->delete();
         return redirect()->back()->with('flash_message_success', 'Coupon has been deleted successfully');
+    }
+	public function exportCsv(Request $request)
+    {
+   $fileName = 'coupon.csv';
+   $coupons = UsedCoupon::join('coupons','coupons.id','=','used_coupons.coupon_id')->join('users','users.id','=','used_coupons.user_id')->join('orders','orders.id','=','used_coupons.order_id')->get(['coupons.*','users.email as email','used_coupons.coupon_id as cid','used_coupons.order_id as oid','used_coupons.discounted_price as dis','orders.amount as final']);
+
+        $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $columns = array('Coupon_Id', 'Coupon_Code', 'User', 'Order_Id', 'Amount','Discount_Price','Final_Price');
+
+        $callback = function() use($coupons, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach ($coupons as $coupon) {
+                $row['Coupon_Id']  = $coupon->cid;
+                $row['Coupon_Code']    = $coupon->coupon_code;
+                $row['User']    = $coupon->email;
+                $row['Order_Id']  = $coupon->oid;
+                $row['Amount']  = $coupon->amount_type=="Fixed"?"RS.$coupon->amount":"$coupon->amount.%";
+                $row['Discount_Price']=$coupon->dis;
+				$row['Final_Price']=$coupon->final;
+
+                fputcsv($file, array($row['Coupon_Id'], $row['Coupon_Code'], $row['User'], $row['Order_Id'], $row['Amount'],$row['Discount_Price'],$row['Final_Price']));
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
     }
 }

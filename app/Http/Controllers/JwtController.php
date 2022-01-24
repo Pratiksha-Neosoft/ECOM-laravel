@@ -115,6 +115,7 @@ class JwtController extends Controller
         foreach($banner as $ban){
             $listbanner[]=[
                 'caption'=>$ban->title,
+                'body'=>$ban->description,
                 'image'=> asset('/images/frontend_images/banners/'.$ban->image)
               ];
           }
@@ -406,6 +407,7 @@ class JwtController extends Controller
                 'total_price'=>$request->total_price,
             ]);
             $order=Order::where('id',$request->order_id)->first();
+            $orderP=OrderProduct::where('order_id',$order->id)->first();
             $user=User::where('id',$order->user_id)->first();
             $userMail=$user->email;
             $pro=Product::where('id',$request->product_id)->first();

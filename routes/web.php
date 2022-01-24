@@ -85,4 +85,5 @@ Route::group(['middleware'=>'admin_auth'],function(){
 	Route::get('report',[UserController::class,'report']);
 	Route::get('downloadUser',[UserController::class,'exportCsv']);
 	Route::get('downloadOrder',[ProductController::class,'exportCsv']);
+	Route::get('downloadCoupon',[CouponController::class,'exportCsv']);
 });

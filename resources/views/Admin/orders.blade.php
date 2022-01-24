@@ -59,11 +59,11 @@
                       <td>{{$order[0]->fullName}}</td>
                       <td>{{$order[0]->address}}<br>State:{{$order[0]->state}},City:{{$order[0]->city}}<br>Pin code:{{$order[0]->pincode}}<br>Mobile:{{$order[0]->mobile_no}}</td>
                       <td> 
-                        <ul>
+                        <ul style="list-style-type:none">
                           @foreach($order[1] as $orderP)
                            <li><img src="{{asset('/images/products/').'/'.$orderP->image}}" width="100" height="100">
                             Name:{{$orderP->product_name}}<br>
-                            Price:{{$orderP->price}}
+                            Price:{{$orderP->price}}<br>
                            </li>
                           @endforeach
                         </ul>                        

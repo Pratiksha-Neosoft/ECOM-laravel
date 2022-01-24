@@ -98,7 +98,7 @@
           </li>
           <li class="nav-item">
             <a href="{{url('/report')}}" class="nav-link">
-              <i class="nav-icon fas fa-envelope-square"></i>
+              <i class="nav-icon fas fa-chart-bar"></i>
               <p>
                 Reports
               </p>
