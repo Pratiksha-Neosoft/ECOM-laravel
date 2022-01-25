@@ -57,7 +57,7 @@
                     <input type="checkbox" name="status" id="status" value="1" @if($couponDetails->status=="1") checked @endif>
                 </div>
                 <div class="form-actions">
-                  <input type="submit" value="Add Coupon" class="btn btn-success">
+                  <input type="submit" value="Update Coupon" class="btn btn-success">
                 </div>
               </form>
         </div>

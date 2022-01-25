@@ -45,6 +45,10 @@ class BannerController extends Controller
 
     public function editBanner(Request $request, $id=null){
         if($request->isMethod('post')){
+            $validated=$request->validate([
+                'title'=>'required',
+                'image'=>'required|mimes:jpg,png,jpeg,gif'
+            ]);
             $data = $request->all();
             if(empty($data['status'])){
                 $status='0';

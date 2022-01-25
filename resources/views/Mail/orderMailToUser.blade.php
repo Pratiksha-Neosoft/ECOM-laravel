@@ -15,7 +15,7 @@
     </tr>
     <tr>
     <th>Image</th>
-    <td><img src="asset('\images\products\'.$product_image)" ></td>
+    <td><img src="asset('/images/products/'.$product_image)" ></td>
     </tr>
     <tr>
         <th>Price</th>

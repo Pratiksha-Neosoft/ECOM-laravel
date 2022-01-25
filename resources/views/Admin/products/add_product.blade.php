@@ -28,7 +28,7 @@
                 <div class="form-group">
                   <label class="control-label">Product Name</label>
                   <div class="controls">
-                    <input class='form-control' type="text" name="product_name" id="product_name">
+                    <input class='form-control' type="text" name="product_name" id="product_name" value="{{old('product_name')}}">
                     @error('product_name')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
@@ -37,7 +37,7 @@
                 <div class="form-group">
                   <label class="control-label">Product Color</label>
                   <div class="controls">
-                    <input class='form-control' type="text" name="product_color" id="product_color">
+                    <input class='form-control' type="text" name="product_color" id="product_color" value="{{old('product_color')}}">
                     @error('product_color')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
@@ -46,13 +46,13 @@
                 <div class="form-group">
                   <label class="control-label">Description</label>
                   <div class="controls">
-                    <textarea name="description" class="form-control"></textarea>
+                    <textarea name="description" class="form-control">{{old('description')}}</textarea>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Price</label>
                   <div class="controls">
-                    <input class='form-control' type="text" name="price" id="price">
+                    <input class='form-control' type="number" name="price" id="price" value="{{old('price')}}">
                     @error('price')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
@@ -61,7 +61,7 @@
                 <div class="form-group">
                   <label class="control-label">Image</label>
                   <div class="controls">
-                    <input class='form-control-file' name="image" id="image" type="file">
+                    <input class='form-control-file' name="image" id="image" type="file" value="{{old('image')}}">
                     @error('image')
                     <div class="text-danger">{{$message}}</div>
                     @enderror

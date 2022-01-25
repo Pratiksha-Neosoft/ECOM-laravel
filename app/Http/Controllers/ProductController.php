@@ -152,12 +152,10 @@ class ProductController extends Controller
         // Get Product Image Paths
         $image_path = 'images/products/';
         
-        // Delete Large Image if not exists in Folder
         if(file_exists($image_path.$productImage->image)){
             unlink($image_path.$productImage->image);
         }
 
-        // Delete Image from Products Images table
         Product_image::where(['id'=>$id])->delete();
 
         return redirect()->back()->with('flash_message_success', 'Product alternate mage has been deleted successfully');
@@ -328,6 +326,4 @@ class ProductController extends Controller
 
         return response()->stream($callback, 200, $headers);
 }
-
-
 }

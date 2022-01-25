@@ -76,21 +76,5 @@ class CategoryController extends Controller
 
         }
     }
-    public function categoryList(){
-        $list=[];
-        $listSub=[];
-        $cat=Category::all();
-        foreach($cat as $c){
-           foreach($c->subcategories as $sc){
-               $listSub[]=$sc->name;
-           }
-           $list[]=[
-            'catname'=>$c->category_name,
-            'subcatname'=>$listSub
-        ];
-        }
-
-        return response()->json($list);
-    }
     
 }

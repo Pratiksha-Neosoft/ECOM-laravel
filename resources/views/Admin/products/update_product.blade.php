@@ -84,7 +84,7 @@
                   </div>
                 </div>
                 <div class="form-actions">
-                  <input type="submit" value="Edit Product" class="btn btn-success">
+                  <input type="submit" value="Update Product" class="btn btn-success">
                 </div>
               </form>
         </div>

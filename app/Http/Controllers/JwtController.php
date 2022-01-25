@@ -71,14 +71,9 @@ class JwtController extends Controller
         }
         else {
             $user=User::where('email',$request->email)->first();
-            // if(!$token=auth()->guard('api')->attempt($validator->validated())){
-            //    return response()->json(['error'=>'Unauthorized','token'=>$token],401);
-            // }
-            // // return $this->respondWithToken($token);
-            // return response()->json(['error'=>0,'token'=>$token,'email'=>$request->email],200);
             if ($user->status =="active") {
                 if($token=auth()->guard('api')->attempt($validator->validated())){
-                return response()->json(['token' => $token,'error'=>0 ,'message' => 'Login successfully.', 'status' => 1, 'email'=>$request->email,'userid'=>$user->id],200);
+                return response()->json(['token' => $token,'error'=>0 ,'message' => 'Login successfully.', 'status' => 1, 'email'=>$request->email,'userid'=>$user->id,'firstname'=>$user->firstname,'lastname'=>$user->lastname],200);
                 }
             }
            else {
@@ -192,7 +187,7 @@ class JwtController extends Controller
         if($pi){
          foreach($pi as $image){
              $listimage[]=[
-                 'image'=> asset('images/products/'.$image->image)
+                 'image'=> asset('/images/products/'.$image->image)
                ];
         }
         }else{
@@ -209,7 +204,7 @@ class JwtController extends Controller
         }else{
             $attrs=[];
         }
-        $image=asset('images/products/'.$prod->image);
+        $image=asset('/images/products/'.$prod->image);
          $list[] = [
              'name' => $prod->product_name,
              'pid' => $prod->id,
@@ -297,7 +292,7 @@ class JwtController extends Controller
         $title=$data->title;
         $body=str_replace( '&', '&amp;', $data->body );
         if($data->image)
-        $image=asset('images/frontend_images/Cms/'.$data->image);
+        $image=asset('/images/frontend_images/Cms/'.$data->image);
         else
         $image='';
         return response()->json(['title'=>$title,'body'=>$body,'image'=>$image]);

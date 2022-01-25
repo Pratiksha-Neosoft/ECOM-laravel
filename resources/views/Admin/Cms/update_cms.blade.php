@@ -26,7 +26,7 @@
                     <textarea name="body" id="body" class="form-control">{{ $CmsDetails->body }}</textarea>
                 </div>
                 <div class="form-actions">
-                  <input type="submit" value="Edit Cms" class="btn btn-success">
+                  <input type="submit" value="Update Cms" class="btn btn-success">
                 </div>
             </form>  
         </div>
