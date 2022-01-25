@@ -78,8 +78,6 @@ Route::group(['middleware'=>'admin_auth'],function(){
 
     Route::get('/admin/view-enquiries',[ContactController::class,'viewEnquiries']);
 
-    Route::post('/ajax',[AjaxController::class,'index']);
-
 	Route::get('admin/view-orders',[ProductController::class,'viewOrder']);
 	Route::post('status/update',[ProductController::class,'updateStatus']);
 	Route::get('report',[UserController::class,'report']);
